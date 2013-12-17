@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "GistInfomation.h"
 
 @interface ViewController ()
 
@@ -148,6 +149,7 @@ NSString *const password = @"2007gti";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    //get the gist information by useing the segue pass to me 
     }
 
 
