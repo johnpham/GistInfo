@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CC0B58B5185FCF8C00D5C185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC0B58B4185FCF8C00D5C185 /* Main.storyboard */; };
-		CC0B58B8185FD27300D5C185 /* GistInfomation.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0B58B7185FD27300D5C185 /* GistInfomation.m */; };
+		CC0B59051862876E00D5C185 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0B59041862876E00D5C185 /* DetailViewController.m */; };
+		CC0B59081862885100D5C185 /* GistInfomation.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0B59071862885100D5C185 /* GistInfomation.m */; };
+		CC0B590B18628AFF00D5C185 /* Gist.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0B590A18628AFF00D5C185 /* Gist.m */; };
 		CCF2B04F185FAE03005C583E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B04E185FAE03005C583E /* Foundation.framework */; };
 		CCF2B051185FAE03005C583E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B050185FAE03005C583E /* CoreGraphics.framework */; };
 		CCF2B053185FAE03005C583E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B052185FAE03005C583E /* UIKit.framework */; };
@@ -36,8 +38,12 @@
 
 /* Begin PBXFileReference section */
 		CC0B58B4185FCF8C00D5C185 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
-		CC0B58B6185FD27300D5C185 /* GistInfomation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistInfomation.h; sourceTree = "<group>"; };
-		CC0B58B7185FD27300D5C185 /* GistInfomation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistInfomation.m; sourceTree = "<group>"; };
+		CC0B59031862876E00D5C185 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		CC0B59041862876E00D5C185 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		CC0B59061862885100D5C185 /* GistInfomation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistInfomation.h; sourceTree = "<group>"; };
+		CC0B59071862885100D5C185 /* GistInfomation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistInfomation.m; sourceTree = "<group>"; };
+		CC0B590918628AFF00D5C185 /* Gist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gist.h; sourceTree = "<group>"; };
+		CC0B590A18628AFF00D5C185 /* Gist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gist.m; sourceTree = "<group>"; };
 		CCF2B04B185FAE03005C583E /* GistInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GistInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF2B04E185FAE03005C583E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CCF2B050185FAE03005C583E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -115,15 +121,19 @@
 		CCF2B054185FAE03005C583E /* GistInfo */ = {
 			isa = PBXGroup;
 			children = (
+				CC0B59061862885100D5C185 /* GistInfomation.h */,
+				CC0B59071862885100D5C185 /* GistInfomation.m */,
 				CCF2B05D185FAE03005C583E /* AppDelegate.h */,
 				CCF2B05E185FAE03005C583E /* AppDelegate.m */,
 				CC0B58B4185FCF8C00D5C185 /* Main.storyboard */,
+				CC0B59031862876E00D5C185 /* DetailViewController.h */,
+				CC0B59041862876E00D5C185 /* DetailViewController.m */,
 				CCF2B063185FAE03005C583E /* ViewController.h */,
 				CCF2B064185FAE03005C583E /* ViewController.m */,
-				CC0B58B6185FD27300D5C185 /* GistInfomation.h */,
-				CC0B58B7185FD27300D5C185 /* GistInfomation.m */,
 				CCF2B066185FAE03005C583E /* Images.xcassets */,
 				CCF2B055185FAE03005C583E /* Supporting Files */,
+				CC0B590918628AFF00D5C185 /* Gist.h */,
+				CC0B590A18628AFF00D5C185 /* Gist.m */,
 			);
 			path = GistInfo;
 			sourceTree = "<group>";
@@ -254,9 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC0B59051862876E00D5C185 /* DetailViewController.m in Sources */,
 				CCF2B065185FAE03005C583E /* ViewController.m in Sources */,
+				CC0B59081862885100D5C185 /* GistInfomation.m in Sources */,
 				CCF2B05F185FAE03005C583E /* AppDelegate.m in Sources */,
-				CC0B58B8185FD27300D5C185 /* GistInfomation.m in Sources */,
+				CC0B590B18628AFF00D5C185 /* Gist.m in Sources */,
 				CCF2B05B185FAE03005C583E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

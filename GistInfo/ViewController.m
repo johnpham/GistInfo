@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "GistInfomation.h"
+#import "Gist.h"
 
 @interface ViewController ()
 
@@ -43,11 +44,10 @@ NSString *const password = @"2007gti";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell to display the description that we have in our description array
-    cell.textLabel.text = self.description[indexPath.row];
+    Gist *gist = self.description[indexPath.row];
+    cell.textLabel.text = gist.description;
     return cell;
 }
-
-
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -61,6 +61,7 @@ NSString *const password = @"2007gti";
         NSData * userPasswordData = [userPasswordString dataUsingEncoding:NSUTF8StringEncoding];
         NSString *base64EncodedCredential = [userPasswordData base64EncodedStringWithOptions:0];
         NSString *authString = [NSString stringWithFormat:@"Basic %@", base64EncodedCredential];
+        NSLog(@"Basic %@", base64EncodedCredential);
         //set the authentication username/password in the http header so that all future session tasks can use it as part of the configuration
         [defaultConfigObject setHTTPAdditionalHeaders:@{@"Authorization": authString}];
         self.session = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
@@ -69,6 +70,9 @@ NSString *const password = @"2007gti";
     }
     return self;
 }
+
+
+
 
 - (void)viewDidLoad
 {
@@ -111,12 +115,12 @@ NSString *const password = @"2007gti";
                 if (jsonError == nil) {
                     //json data is good so loop through all the data returned from the response
                     for (NSDictionary* key in notesJSON) {
-                        //get the json description if it exist, if not, get the json commit id and populate it in the description array
-                        if([key[@"description"] length] == 0) { //json description is empty
-                            [self.description addObject:key[@"id"]];
-                        } else {
-                            [self.description addObject:key[@"description"]];
-                        }
+                        //get the json description if it exist, if not, get the json commit id and populate it in the
+                        Gist *gist = [[Gist alloc]init];
+                        
+                        gist.gistId = key[@"id"];
+                        gist.description = key[@"description"];
+                        [self.description addObject:gist];
                     }
                     
                     //refresh the table with new data we got from gist
@@ -149,8 +153,16 @@ NSString *const password = @"2007gti";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //get the gist information by useing the segue pass to me 
+    if ([[segue identifier] isEqualToString:@"EditItem"])
+    {
+        // Get reference to the destination view controller
+        GistInfomation *dvc = [segue destinationViewController];
+        // Pass any objects to the view controller here, like...
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        Gist *gist = self.description[path.row];
+        dvc.editGist = gist;
     }
+}
 
 
 #pragma mark - Table view data source

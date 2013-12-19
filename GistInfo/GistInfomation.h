@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h> 
+#import "Gist.h"
 
-@interface GistInfomation : UIViewController <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate,UIDocumentInteractionControllerDelegate>
-//create property NSString that will contain the gist id
-
-@property (nonatomic, strong)NSString *gistId;
-
+@interface GistInfomation : UIViewController
+@property (nonatomic, strong)Gist *editGist;
 @end
