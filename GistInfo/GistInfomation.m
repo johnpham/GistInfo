@@ -8,7 +8,12 @@
 
 #import "GistInfomation.h"
 
+
+
 @interface GistInfomation ()
+
+@property (strong,nonatomic) NSURLSession *session;
+@property (strong,nonatomic) NSMutableArray *description;
 
 @end
 
@@ -22,29 +27,25 @@
     }
     return self;
 }
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSString *userPasswordString = [NSString stringWithFormat:@"johnpham:2007gti"];
+        NSData * userPasswordData = [userPasswordString dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64EncodedCredential = [userPasswordData base64EncodedStringWithOptions:0];
+        NSString *authString = [NSString stringWithFormat:@"Basic %@", base64EncodedCredential];
+        NSLog(@"Basic number two %@", base64EncodedCredential);
+                [defaultConfigObject setHTTPAdditionalHeaders:@{@"Authorization": authString}];
+        self.session = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+        //init description array
+        self.description = [[NSMutableArray alloc]init];
+    }
+    return self;
+}
 
-//Tells the delegate that a download task has finished downloading.
-//-(void)URLSession:(NSURLSession *)session
-//     downloadTask:(NSURLSessionDownloadTask *)downloadTask
-//didFinishDownloadingToURL:(NSURL *)location
-//{
-//    // use code above from completion handler
-//}
-//
-////Periodically informs the delegate about the download’s progress.
-//- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
-//      didWriteData:(int64_t)bytesWritten
-// totalBytesWritten:(int64_t)totalBytesWritten
-//totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-//    
-//}
-//
-////Tells the delegate that the download task has resumed downloading.
-//- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
-// didResumeAtOffset:(int64_t)fileOffset
-//expectedTotalBytes:(int64_t)expectedTotalBytes {
-//    
-//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
