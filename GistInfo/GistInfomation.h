@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h> 
 #import "Gist.h"
 
-@interface GistInfomation : UIViewController
+@interface GistInfomation : UITableViewController
+
+
 @property (nonatomic, strong)Gist *editGist;
+
+
 @end

@@ -11,4 +11,6 @@
 @interface Gist : NSObject
 @property(nonatomic,strong)NSString *gistId;
 @property(nonatomic,strong)NSString *description;
+@property(nonatomic,strong)NSString *forkUrl;
+
 @end

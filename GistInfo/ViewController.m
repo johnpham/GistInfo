@@ -14,7 +14,7 @@
 
 @end
 
-#import "ViewController.h"
+//#import "ViewController.h"
 
 NSString *const username = @"johnpham";
 NSString *const password = @"2007gti";
@@ -30,13 +30,14 @@ NSString *const password = @"2007gti";
 
 @end
 
-//new comment
 
 @implementation ViewController
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    NSLog(@"%i",self.description.count);
     return self.description.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,12 +115,13 @@ NSString *const password = @"2007gti";
                 //check to make sure that we are gettting json data back
                 if (jsonError == nil) {
                     //json data is good so loop through all the data returned from the response
-                    for (NSDictionary* key in notesJSON) {
+                    for (NSDictionary *key in notesJSON) {
                         //get the json description if it exist, if not, get the json commit id and populate it in the
                         Gist *gist = [[Gist alloc]init];
                         
                         gist.gistId = key[@"id"];
                         gist.description = key[@"description"];
+                        gist.forkUrl = key[@"forks_url"];
                         [self.description addObject:gist];
                     }
                     
