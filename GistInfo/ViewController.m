@@ -32,14 +32,22 @@ NSString *const password = @"2007gti";
 
 
 @implementation ViewController
+{
+    NSMutableArray *_items;
 
--(IBAction)AddItem{
-    
 }
+
+
+
+//-(IBAction)AddItem{
+//    
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     NSLog(@"%i",self.description.count);
+    //return [_items count];
+
     return self.description.count;
     
 }
@@ -50,7 +58,7 @@ NSString *const password = @"2007gti";
     
     // Configure the cell to display the description that we have in our description array
     Gist *gist = self.description[indexPath.row];
-    cell.textLabel.text = gist.description;
+    cell.textLabel.text = gist.gistId;
     return cell;
 }
 
@@ -82,6 +90,10 @@ NSString *const password = @"2007gti";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _items = [[NSMutableArray alloc] initWithCapacity:20];
+
+    
 	// Do any additional setup after loading the view, typically from a nib.
     //create a pull down in the table to refresh manually
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -161,14 +173,48 @@ NSString *const password = @"2007gti";
 {
     if ([[segue identifier] isEqualToString:@"EditItem"])
     {
+        UINavigationController *navigationController = segue.destinationViewController;
         // Get reference to the destination view controller
-        GistInfomation *dvc = [segue destinationViewController];
+        GistInfomation *dvc = (GistInfomation*)navigationController.topViewController;
         // Pass any objects to the view controller here, like...
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         Gist *gist = self.description[path.row];
         dvc.editGist = gist;
     }
+    if ([segue.identifier isEqualToString:@"AddItem"])
+    {
+        // 1
+        UINavigationController *navigationController = segue.destinationViewController;
+        // 2
+        CreateNewGistViewController *controller = (CreateNewGistViewController *)
+        navigationController.topViewController;
+        controller.delegate = self;
+    }
+    
 }
+
+- (void)addItemViewControllerDidCancel:
+(CreateNewGistViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)addItemViewController:(CreateNewGistViewController *)controller didFinishAddingItem:(Gist *)item
+{
+    
+NSInteger newRowIndex = [_items count];
+[_items addObject:item];
+NSIndexPath *indexPath = [NSIndexPath
+                          indexPathForRow:newRowIndex inSection:0];
+NSArray *indexPaths = @[indexPath];
+    [self.tableView insertRowsAtIndexPaths:indexPaths
+                                withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 
 #pragma mark - Table view data source

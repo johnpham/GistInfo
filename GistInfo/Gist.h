@@ -12,5 +12,8 @@
 @property(nonatomic,strong)NSString *gistId;
 @property(nonatomic,strong)NSString *description;
 @property(nonatomic,strong)NSString *forkUrl;
+@property(nonatomic,strong)NSString *push;
+
+@property (nonatomic, copy) NSString *text;
 
 @end

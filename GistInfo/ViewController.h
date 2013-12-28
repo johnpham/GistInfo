@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CreateNewGistViewController.h"
 
-@interface ViewController : UITableViewController 
+@interface ViewController : UITableViewController <CreateNewGistViewControllerDelegate>
 
--(IBAction) AddItem;
+//-(IBAction) AddItem;
 
 @end

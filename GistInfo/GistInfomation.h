@@ -14,7 +14,6 @@
 
 @property (nonatomic, strong)Gist *editGist;
 
-
 - (IBAction)cancel;
 - (IBAction)done;
 

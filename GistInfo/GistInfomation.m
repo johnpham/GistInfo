@@ -25,6 +25,14 @@
 
 @implementation GistInfomation
 
+- (IBAction)cancel {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)done{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -42,7 +50,7 @@
     
     // Configure the cell to display the description that we have in our description array
     Gist *gist = self.description[indexPath.row];
-    cell.textLabel.text = gist.forkUrl;
+    cell.textLabel.text = gist.description;
     return cell;
 }
 
@@ -100,7 +108,9 @@
     //reset the array to empty
     [self.description removeAllObjects];
     //make call to gist using the username const that we defined
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/users/johnpham/gists"]]];
+    NSLog(@"%@",self.editGist.gistId);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:
+                                                                             [NSString stringWithFormat:@"https://api.github.com/gists/%@", self.editGist.gistId]]];
     [request setHTTPMethod:@"GET"];
     
     //make call to retrieve data
@@ -119,14 +129,12 @@
                 //check to make sure that we are gettting json data back
                 if (jsonError == nil) {
                     //json data is good so loop through all the data returned from the response
-                    for (NSDictionary *key in notesJSON) {
-                        //get the json description if it exist, if not, get the json commit id and populate it in the
-                        Gist *gist = [[Gist alloc]init];
+                    
+                    for (NSString *file in [notesJSON valueForKey:@"files"]) {
                         
-                        gist.gistId = key[@"id"];
-                        gist.description = key[@"description"];
-                        gist.forkUrl = key[@"forks_url"];
-                        [self.description addObject:gist];
+                        NSString *content = [[[notesJSON valueForKey:@"files"] objectForKey:file] objectForKey:@"content"];
+                        NSLog(@"test %@", content);
+
                     }
                     
                     //refresh the table with new data we got from gist
